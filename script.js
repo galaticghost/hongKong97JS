@@ -21,7 +21,7 @@ function useEnemy(enemy){
 
 }
 
-setInterval(function movement(enemy){
+/*setInterval(function movement(enemy){
     if (enemyOne.style.left === "940px"){
         left = false;
     } else if (enemyOne.style.left === "0px"){
@@ -33,11 +33,18 @@ setInterval(function movement(enemy){
     else if (enemyOne.style.left !== "0px" & left === false){
         enemyOne.style.left = parseInt(enemyOne.style.left) - movimento + "px";
     }
-},100);
+},100);*/
 
 enemyOne.style.top = 0;
 enemyOne.style.left = 0;
 useEnemy(enemyOne);
+let moviment = setInterval(function movement(enemy){
+    enemyOne.style.top = parseInt(enemyOne.style.top) + movimento + "px";
+    if (enemyOne.style.top === "760px"){
+        enemyOne.style.top = "0px";
+    }
+},100)
+
 
 function createEnemy(){
     let enemie = "bola";
