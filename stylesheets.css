@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    background-image: url("assets/background.jpg");
+    transition-duration: 2s;
+}
+
+#enemy-one{
+    position: absolute;
+    transition-duration: 0.08s;
+    width: 51px;
+    height: 128px;
+}
+
+#player{
+    position: absolute;
+    transition-duration: 0.08s;
+    width: 51px;
+    height: 128px;
+}
+
+#jogo{
+    position: relative;
+    width: 1000px;
+    height: 900px;
+    background-image: url("assets/background1.png");
+    background-size: cover;
+    top: 10vh;
+    left: 50vh;
+    border: 30px solid black;
+}
