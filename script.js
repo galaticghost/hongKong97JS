@@ -4,6 +4,7 @@ let tela = document.getElementById("jogo");
 let contaFundo = 2
 const enemyOne = document.getElementById("enemy-one");
 let left = true;
+let spriteChange = true;
 
 function music(){
     let x = document.getElementById("som");
@@ -40,7 +41,17 @@ enemyOne.style.left = 0;
 useEnemy(enemyOne);
 let moviment = setInterval(function movement(enemy){
     enemyOne.style.top = parseInt(enemyOne.style.top) + movimento + "px";
+    if (spriteChange === true){
+        enemyOne.src = "assets/enemy1.png";
+        spriteChange = false;
+        enemyOne.style.display = "inline";
+    }
+    else{
+        enemyOne.src = "assets/enemy1Right.png";
+        spriteChange = true;
+    }
     if (enemyOne.style.top === "760px"){
+        enemyOne.style.display = "none";
         enemyOne.style.top = "0px";
     }
 },100)
@@ -97,11 +108,18 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("keyup", (event) => {
     switch (event.key){
         case "ArrowLeft":
-            console.log(player.src);
             player.src = "assets/player1.png";
             break;
         case "ArrowRight":
             player.src = "assets/player1.png";
+            break;
+    }
+});
+
+window.addEventListener("keypress", (event) => {
+    switch (event.key){
+        case "z":
+            console.log(event);
             break;
     }
 });

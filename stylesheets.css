@@ -26,5 +26,5 @@ body {
     background-size: cover;
     top: 10vh;
     left: 50vh;
-    border: 30px solid black;
+    border: 30px ridge black;
 }
