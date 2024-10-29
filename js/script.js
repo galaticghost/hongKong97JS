@@ -20,9 +20,10 @@ const enemies = [
 let background = new Image();
 let backgroundContador = 2;
 let enemyType;
+let score = 0;
 
 // códios BOLANEOS
-background.src = "assets/background1.png";
+background.src = "assets/background/background1.png";
 background.onload = function(){
     context.drawImage(background,0,0,1000,900);
 }
@@ -41,13 +42,19 @@ function hongKong97(){
         if (bulletController.colideWith(enemy)){
             if(enemy.health <= 0){
                 createEnemy();
+                score += 1;
                 const index = enemies.indexOf(enemy);
                 enemies.splice(index,1);
             }
+        } else if (enemy.isEnemyOffScreen()){
+            createEnemy();
+            const index = enemies.indexOf(enemy);
+            enemies.splice(index,1);
         } else {
             enemy.draw(context);
         }
     });
+    console.log(score);
 }
 
 function xRandom(){
@@ -63,7 +70,7 @@ function changeBackground(){
         backgroundContador = 1;
     }
 
-    background.src = "assets/background" + backgroundContador + ".png";
+    background.src = "assets/background/background" + backgroundContador + ".png";
     backgroundContador += 1;
 }
 
@@ -91,7 +98,7 @@ function deathAnimation(enemy){
     let x = enemy.x;
     let y = enemy.y;
 
-    
+
 }
 
 function startGame(){

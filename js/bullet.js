@@ -9,7 +9,7 @@ export default class Bullet{
         this.height = 20;
 
         this.sprite = new Image();
-        this.sprite.src = "assets/balita.png";
+        this.sprite.src = "assets/player/balita.png";
     }
 
     draw(context){

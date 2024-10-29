@@ -25,4 +25,8 @@ export default class Enemy{
     takeDamage(damage){
         this.health -= damage;
     }
+
+    isEnemyOffScreen(){
+        return this.y >= 870;
+    }
 }

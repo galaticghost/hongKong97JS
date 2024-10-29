@@ -7,7 +7,7 @@ export default class Player{
         this.speed = 6;
         this.bulletController = bulletController;
         this.sprite = new Image();
-        this.sprite.src = "assets/player1.png";
+        this.sprite.src = "assets/player/player1.png";
         this.interval = null;
         this.counterLeft = 1;
         this.counterRight = 1;
@@ -26,10 +26,10 @@ export default class Player{
     spriteChanger(){
         if ((!this.leftPressed && !this.rightPressed) && (this.upPressed)){
             if (this.interval !== undefined){clearInterval(this.interval);}
-            this.sprite.src = "assets/player1Back.png";
+            this.sprite.src = "assets/player/player1Back.png";
         } else if ((!this.leftPressed && !this.rightPressed) || (this.leftPressed && this.rightPressed)){
             if (this.interval !== undefined){clearInterval(this.interval);}
-            this.sprite.src = "assets/player1.png";
+            this.sprite.src = "assets/player/player1.png";
         } /*else if (this.leftPressed){
             if (this.interval !== undefined && this.interval === setInterval(this.rightAnimation.bind(this),300)){clearInterval(this.interval);}
             this.interval = setInterval(this.leftAnimation.bind(this),100);
@@ -49,15 +49,15 @@ export default class Player{
         }
 
         if (this.counterLeft === 1){
-            this.sprite.src = "assets/player2.png";
+            this.sprite.src = "assets/player/player2.png";
         } else if (this.counterLeft === 2){
-            this.sprite.src = "assets/player3.png";
+            this.sprite.src = "assets/player/player3.png";
         } else if (this.counterLeft === 3){
-            this.sprite.src = "assets/player4.png";
+            this.sprite.src = "assets/player/player4.png";
         } else if (this.counterLeft === 4){
-            this.sprite.src = "assets/player5.png";
+            this.sprite.src = "assets/player/player5.png";
         } else if (this.counterLeft === 5){
-            this.sprite.src = "assets/player6.png";
+            this.sprite.src = "assets/player/player6.png";
         }
         this.counterLeft += 1;
     }
@@ -71,15 +71,15 @@ export default class Player{
             this.counterRight = 1;
         }
         if (this.counterRight === 1){
-            this.sprite.src = "assets/player2Right.png";
+            this.sprite.src = "assets/player/player2Right.png";
         } else if (this.counterRight === 2){
-            this.sprite.src = "assets/player3Right.png";
+            this.sprite.src = "assets/player/player3Right.png";
         } else if (this.counterRight === 3){
-            this.sprite.src = "assets/player4Right.png";
+            this.sprite.src = "assets/player/player4Right.png";
         } else if (this.counterRight === 4){
-            this.sprite.src = "assets/player5Right.png";
+            this.sprite.src = "assets/player/player5Right.png";
         } else if (this.counterRight === 5){
-            this.sprite.src = "assets/player6Right.png";
+            this.sprite.src = "assets/player/player6Right.png";
         }
         this.counterRight += 1;
     }
