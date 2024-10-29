@@ -87,6 +87,13 @@ function music(){
     x.play();
 }
 
+function deathAnimation(enemy){
+    let x = enemy.x;
+    let y = enemy.y;
+
+    
+}
+
 function startGame(){
     setInterval(changeBackground, 10000);
     setInterval(hongKong97, 1000 / 60);

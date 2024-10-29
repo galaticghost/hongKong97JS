@@ -8,6 +8,9 @@ export default class Player{
         this.bulletController = bulletController;
         this.sprite = new Image();
         this.sprite.src = "assets/player1.png";
+        this.interval = null;
+        this.counterLeft = 1;
+        this.counterRight = 1;
 
         document.addEventListener("keydown", this.keydown);
         document.addEventListener("keyup", this.keyup);
@@ -15,8 +18,70 @@ export default class Player{
 
     draw(context){
         this.move();
+        this.spriteChanger();
         context.drawImage(this.sprite,this.x,this.y,this.width,this.height);
         this.shoot();
+    }
+
+    spriteChanger(){
+        if ((!this.leftPressed && !this.rightPressed) && (this.upPressed)){
+            if (this.interval !== undefined){clearInterval(this.interval);}
+            this.sprite.src = "assets/player1Back.png";
+        } else if ((!this.leftPressed && !this.rightPressed) || (this.leftPressed && this.rightPressed)){
+            if (this.interval !== undefined){clearInterval(this.interval);}
+            this.sprite.src = "assets/player1.png";
+        } /*else if (this.leftPressed){
+            if (this.interval !== undefined && this.interval === setInterval(this.rightAnimation.bind(this),300)){clearInterval(this.interval);}
+            this.interval = setInterval(this.leftAnimation.bind(this),100);
+        } else if (this.rightPressed){
+            if (this.interval !== undefined && this.interval === setInterval(this.leftAnimation.bind(this),300)){clearInterval(this.interval);}
+            this.interval = setInterval(this.rightAnimation.bind(this),100);
+        }*/
+    }
+
+    leftAnimation(){
+        if (this.counterRight !== 1){
+            this.counterRight = 1;
+        }
+
+        if (this.counterLeft === 5){
+            this.counterLeft = 1;
+        }
+
+        if (this.counterLeft === 1){
+            this.sprite.src = "assets/player2.png";
+        } else if (this.counterLeft === 2){
+            this.sprite.src = "assets/player3.png";
+        } else if (this.counterLeft === 3){
+            this.sprite.src = "assets/player4.png";
+        } else if (this.counterLeft === 4){
+            this.sprite.src = "assets/player5.png";
+        } else if (this.counterLeft === 5){
+            this.sprite.src = "assets/player6.png";
+        }
+        this.counterLeft += 1;
+    }
+
+    rightAnimation(){
+        if (this.counterLeft !== 1){
+            this.counterLeft = 1;
+        }
+
+        if (this.counterRight === 5){
+            this.counterRight = 1;
+        }
+        if (this.counterRight === 1){
+            this.sprite.src = "assets/player2Right.png";
+        } else if (this.counterRight === 2){
+            this.sprite.src = "assets/player3Right.png";
+        } else if (this.counterRight === 3){
+            this.sprite.src = "assets/player4Right.png";
+        } else if (this.counterRight === 4){
+            this.sprite.src = "assets/player5Right.png";
+        } else if (this.counterRight === 5){
+            this.sprite.src = "assets/player6Right.png";
+        }
+        this.counterRight += 1;
     }
 
     move(){
