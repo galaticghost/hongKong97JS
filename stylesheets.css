@@ -2,6 +2,11 @@ body {
     margin: 0;
     background-image: url("assets/background.jpg");
     transition-duration: 2s;
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    padding: 5vh;
+    height: 90vh;
 }
 
 #enemy-one{
@@ -19,12 +24,5 @@ body {
 }
 
 #jogo{
-    position: relative;
-    width: 1000px;
-    height: 900px;
-    background-image: url("assets/background1.png");
-    background-size: cover;
-    top: 10vh;
-    left: 50vh;
-    border: 30px ridge black;
+    border: 40px ridge black;
 }
