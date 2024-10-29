@@ -1,9 +1,9 @@
 import Enemy from "./enemy.js";
 
-export default class EnemyZhou extends Enemy{
+export default class EnemyHao extends Enemy{
     constructor(x,y,health){
         super(x,y,health);
-        this.sprite.src = "assets/player2.png";
+        this.sprite.src = "";
     }
 
     spriteChanger(){

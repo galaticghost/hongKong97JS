@@ -1,21 +1,9 @@
-export default class EnemyWen{
+import Enemy from "./enemy.js";
+
+export default class EnemyWen extends Enemy{
     constructor(x,y,health){
-        this.x = x;
-        this.y = y;
-        this.health = health;
-        this.width = 51;
-        this.height = 128;
-        this.speed = 3;
-        
-        this.left = true;
-
-        this.sprite = new Image();
+        super(x,y,health)
         this.sprite.src = "assets/enemy1.png";
-    }
-
-    draw(context){
-        this.y += this.speed;
-        context.drawImage(this.sprite,this.x,this.y,this.width,this.height);
     }
 
     spriteChanger(){
@@ -27,7 +15,4 @@ export default class EnemyWen{
         this.left = !this.left;
     }
 
-    takeDamage(damage){
-        this.health -= damage;
-    }
 }

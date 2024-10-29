@@ -4,7 +4,7 @@ export default class Player{
         this.y = y;
         this.width = 51;
         this.height = 128;
-        this.speed = 4;
+        this.speed = 6;
         this.bulletController = bulletController;
         this.sprite = new Image();
         this.sprite.src = "assets/player1.png";
@@ -20,16 +20,16 @@ export default class Player{
     }
 
     move(){
-        if (this.downPressed){
+        if (this.downPressed && this.y !== 774){
             this.y += this.speed;
         }
-        if (this.upPressed){
+        if (this.upPressed && this.y !== 0){
             this.y -= this.speed;
         }
-        if (this.leftPressed){
+        if (this.leftPressed && this.x !== 0.75){
             this.x -= this.speed;
         }
-        if (this.rightPressed){
+        if (this.rightPressed && this.x !== 954.75){
             this.x += this.speed;
         }
     }

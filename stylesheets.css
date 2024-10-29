@@ -1,10 +1,8 @@
 body {
     margin: 0;
     background-image: url("assets/background.jpg");
-    transition-duration: 2s;
     display: flex;
     justify-content: center;
-    align-content: space-around;
     padding: 5vh;
     height: 90vh;
 }
@@ -24,5 +22,13 @@ body {
 }
 
 #jogo{
-    border: 40px ridge black;
+    outline: 40px ridge black;
+}
+
+#start{
+    width: 100px;
+    height: 50px;
+    top: 0;
+    left: 0;
+    position: absolute;
 }
