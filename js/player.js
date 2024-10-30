@@ -8,7 +8,6 @@ export default class Player{
         this.bulletController = bulletController;
         this.sprite = new Image();
         this.sprite.src = "assets/player/player1.png";
-        this.interval = null;
         this.counterLeft = 1;
         this.counterRight = 1;
 
@@ -30,35 +29,35 @@ export default class Player{
         } else if ((!this.leftPressed && !this.rightPressed) || (this.leftPressed && this.rightPressed)){
             if (this.interval !== undefined){clearInterval(this.interval);}
             this.sprite.src = "assets/player/player1.png";
-        } /*else if (this.leftPressed){
+        } else if (this.leftPressed){
             if (this.interval !== undefined && this.interval === setInterval(this.rightAnimation.bind(this),300)){clearInterval(this.interval);}
-            this.interval = setInterval(this.leftAnimation.bind(this),100);
+                this.leftAnimation();
         } else if (this.rightPressed){
             if (this.interval !== undefined && this.interval === setInterval(this.leftAnimation.bind(this),300)){clearInterval(this.interval);}
-            this.interval = setInterval(this.rightAnimation.bind(this),100);
-        }*/
+                this.rightAnimation();
+        }
     }
 
     leftAnimation(){
         if (this.counterRight !== 1){
             this.counterRight = 1;
         }
-
-        if (this.counterLeft === 5){
+        if (this.counterLeft === 31){
             this.counterLeft = 1;
         }
 
-        if (this.counterLeft === 1){
+        if ((this.counterLeft === 1) || (this.counterLeft < 7)){
             this.sprite.src = "assets/player/player2.png";
-        } else if (this.counterLeft === 2){
+        } else if ((this.counterLeft === 7) || (this.counterLeft < 13)){
             this.sprite.src = "assets/player/player3.png";
-        } else if (this.counterLeft === 3){
+        } else if ((this.counterLeft === 13) || (this.counterLeft < 19)){
             this.sprite.src = "assets/player/player4.png";
-        } else if (this.counterLeft === 4){
+        } else if ((this.counterLeft === 19) || (this.counterLeft < 25)){
             this.sprite.src = "assets/player/player5.png";
-        } else if (this.counterLeft === 5){
+        } else if ((this.counterLeft === 25) || (this.counterLeft < 31)){
             this.sprite.src = "assets/player/player6.png";
         }
+
         this.counterLeft += 1;
     }
 
@@ -66,19 +65,19 @@ export default class Player{
         if (this.counterLeft !== 1){
             this.counterLeft = 1;
         }
-
-        if (this.counterRight === 5){
+        if (this.counterRight === 31){
             this.counterRight = 1;
         }
-        if (this.counterRight === 1){
+
+        if ((this.counterRight === 1) || (this.counterRight < 7)){
             this.sprite.src = "assets/player/player2Right.png";
-        } else if (this.counterRight === 2){
+        } else if ((this.counterRight === 7) || (this.counterRight < 13)){
             this.sprite.src = "assets/player/player3Right.png";
-        } else if (this.counterRight === 3){
+        } else if ((this.counterRight === 13) || (this.counterRight < 19)){
             this.sprite.src = "assets/player/player4Right.png";
-        } else if (this.counterRight === 4){
+        } else if ((this.counterRight === 19) || (this.counterRight < 25)){
             this.sprite.src = "assets/player/player5Right.png";
-        } else if (this.counterRight === 5){
+        } else if ((this.counterRight === 25) || (this.counterRight < 31)){
             this.sprite.src = "assets/player/player6Right.png";
         }
         this.counterRight += 1;
