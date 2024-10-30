@@ -7,20 +7,6 @@ body {
     height: 90vh;
 }
 
-#enemy-one{
-    position: absolute;
-    transition-duration: 0.08s;
-    width: 51px;
-    height: 128px;
-}
-
-#player{
-    position: absolute;
-    transition-duration: 0.08s;
-    width: 51px;
-    height: 128px;
-}
-
 #jogo{
     outline: 40px ridge black;
 }

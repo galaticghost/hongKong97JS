@@ -3,6 +3,7 @@ import BulletController from "./bulletController.js";
 import EnemyWen from "./enemyWen.js";
 import EnemyZhou from "./enemyZhou.js";
 import EnemyHao from "./enemyHao.js";
+import Score from "./score.js";
 
 // Variáveis globais
 
@@ -16,11 +17,11 @@ const enemies = [
     new EnemyWen(50,-140,1),
     new EnemyWen(285,-140,1)
 ]
+const score = new Score();
 
 let background = new Image();
 let backgroundContador = 2;
 let enemyType;
-let score = 0;
 
 // códios BOLANEOS
 background.src = "assets/background/background1.png";
@@ -36,13 +37,14 @@ canvas.height = 900;
 function hongKong97(){
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(background,0,0,1000,900)
+    score.draw(context);
     bulletController.draw(context);
     player.draw(context);
     enemies.forEach((enemy) => {
         if (bulletController.colideWith(enemy)){
             if(enemy.health <= 0){
                 createEnemy();
-                score += 1;
+                score.score += 1;
                 const index = enemies.indexOf(enemy);
                 enemies.splice(index,1);
             }
@@ -54,7 +56,6 @@ function hongKong97(){
             enemy.draw(context);
         }
     });
-    console.log(score);
 }
 
 function xRandom(){

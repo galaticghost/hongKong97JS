@@ -14,12 +14,16 @@ export default class Enemy{
     }
 
     draw(context){
-        this.y += this.speed;
+        this.move();
         context.drawImage(this.sprite,this.x,this.y,this.width,this.height);
     }
 
     spriteChanger(){
 
+    }
+
+    move(){
+        
     }
 
     takeDamage(damage){
