@@ -10,11 +10,11 @@ export default class EnemyZhou extends Enemy{
     }
 
     move(){
-        if (this.counter === 81) {
+        if (this.counter === 61) {
             this.counter = 0;
         }
 
-        if (this.counter < 40){
+        if (this.counter < 30){
             this.moveRight = true;
         } else {
             this.moveRight = false;

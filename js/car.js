@@ -7,6 +7,7 @@ export default class Car{
         this.speed = 5;
         this.sprite = new Image();
         this.sprite.src = "assets/enemy/car.png";
+        this.frame = 0;
     }
 
     draw(context){
@@ -15,6 +16,12 @@ export default class Car{
     }
 
     move(){
-
+        if (this.frame <= 60){
+            this.x -= this.speed;
+        }
+        else{
+            this.x -= this.speed + 10;
+        }
+        this.frame += 1;
     }
 }

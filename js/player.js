@@ -101,10 +101,10 @@ export default class Player{
         if (this.upPressed && this.y !== 0){
             this.y -= this.speed;
         }
-        if (this.leftPressed && this.x !== 0.75){
+        if (this.leftPressed && this.x >= 0.75){
             this.x -= this.speed;
         }
-        if (this.rightPressed && this.x !== 954.75){
+        if (this.rightPressed && this.x <= 944.75){
             this.x += this.speed;
         }
     }
@@ -157,6 +157,7 @@ export default class Player{
     }
     
     colideWith(sprite){
+        console.log(sprite.x)
         if (this.x < sprite.x + sprite.width 
             && this.x + this.width > sprite.x 
             && this.y < sprite.y + sprite.height

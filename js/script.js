@@ -5,6 +5,7 @@ import EnemyZhou from "./enemyZhou.js";
 import EnemyHao from "./enemyHao.js";
 import Score from "./score.js";
 import BulletControllerEnemy from "./bulletControllerEnemy.js";
+import Car from "./car.js";
 
 // Variáveis globais
 let game;
@@ -21,13 +22,9 @@ function realGame(){
 
     const bulletController = new BulletController(canvas);
     const player = new Player(canvas.width/2.1,canvas.height/1.2,bulletController);
-    const enemies = [
-        new EnemyWen(50,-140,1),
-        new EnemyWen(285,-140,1)
-    ]
-    const chips = [
-
-    ]
+    const enemies = []
+    const chips = []
+    const car = []
 
     const score = new Score();
     const gameOver = new Image();
@@ -37,21 +34,29 @@ function realGame(){
     let backgroundContador = 2;
     let enemyType;
 
-    // códios BOLANEOS
     background.src = "assets/background/background1.png";
     background.onload = function(){
         context.drawImage(background,0,0,1000,900);
     }
 
-    // Funções 
     function hongKong97(){
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(background,0,0,1000,900)
+        createCar();
         score.draw(context);
         bulletController.draw(context);
         player.draw(context);
+        if (car.length === 1){
+            if (isCarOffScreen(car[0])){
+                car.pop();
+            } else {
+                car[0].draw(context);
+            }
+            if (player.colideWith(car[0])) {
+                endGame();
+            }
+        }
         enemies.forEach((enemy) => {
-            console.log(enemy.bulletEnemyController);
             if (enemy.bulletEnemyController !== undefined){
                 if (enemy.bulletEnemyController.colideWith(player)){
                     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -105,6 +110,17 @@ function realGame(){
             enemies.pop();
         } else if (x === 6) {
             createEnemy();
+        }
+    }
+
+    function isCarOffScreen(car){
+        return car.x <= -50;
+    }
+
+    function createCar(){
+        let x = randomIntFromInterval(1,500)
+        if (x === 499 && car.length === 0){
+            car.push(new Car(randomIntFromInterval(0,899)));
         }
     }
 
@@ -163,6 +179,9 @@ function realGame(){
         game = setInterval(hongKong97, 1000 / 60);
         music();
     }
+
+    createEnemy();
+    createEnemy();
     startGame();
 }
 
