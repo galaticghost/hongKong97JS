@@ -1,4 +1,4 @@
-export default class bulletEnemy{
+export default class BulletEnemy{
     constructor(x,y,speed,damage){
         this.x = x;
         this.y = y;

@@ -5,27 +5,28 @@ export default class EnemyZhou extends Enemy{
         super(x,y,health);
         this.sprite.src = "assets/enemy/enemy2.png";
         this.moveRight = true;
-        this.lastX = this.x;
         this.speed = 4;
+        this.counter = 0;
     }
 
     move(){
+        if (this.counter === 81) {
+            this.counter = 0;
+        }
+
+        if (this.counter < 40){
+            this.moveRight = true;
+        } else {
+            this.moveRight = false;
+        }
+
         this.y += this.speed;
         if (this.moveRight){
-            this.x += this.speed;
-            if (this.x === this.lastX);{
-                this.lastX = this.x - 1000;
-                console.log(this.lastX);
-                this.moveRight = !this.moveRight;
-            }
-        } else {
+            this.x += this.speed;  
+        } else if (!this.moveRight) {
             this.x -= this.speed;
-            if (this.x === this.lastX);{
-                this.lastX = this.x + 1000;
-                console.log(this.lastX);
-                this.moveRight = !this.moveRight;
-            }
         }
+        this.counter += 1;
     }
 
     spriteChanger(){

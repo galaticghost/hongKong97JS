@@ -6,7 +6,6 @@ import EnemyHao from "./enemyHao.js";
 import Score from "./score.js";
 
 // Variáveis globais
-
 const canvas = document.getElementById("jogo");
 const context = canvas.getContext("2d");
 const start = document.getElementById("start");
@@ -17,11 +16,16 @@ const enemies = [
     new EnemyWen(50,-140,1),
     new EnemyWen(285,-140,1)
 ]
+const chips = [
+
+]
 const score = new Score();
 
 let background = new Image();
 let backgroundContador = 2;
 let enemyType;
+let game;
+let backgroundChange;
 
 // códios BOLANEOS
 background.src = "assets/background/background1.png";
@@ -44,18 +48,32 @@ function hongKong97(){
         if (bulletController.colideWith(enemy)){
             if(enemy.health <= 0){
                 createEnemy();
+                randomEnemy();
                 score.score += 1;
-                const index = enemies.indexOf(enemy);
-                enemies.splice(index,1);
+                enemy.height = 75;
+                enemy.width = 100;
+                enemy.dead = true;
             }
         } else if (enemy.isEnemyOffScreen()){
             createEnemy();
             const index = enemies.indexOf(enemy);
             enemies.splice(index,1);
+        } else if (enemy.dead === true){
+            if(enemy.deathAnimation(context) === 61){
+                const index = enemies.indexOf(enemy);
+                enemies.splice(index,1);
+            }
+        } else if (player.colideWith(enemy) /*|| player.colideWith(chip)*/){
+            endGame();
         } else {
             enemy.draw(context);
         }
     });
+    if (enemies.length === 0) {
+        console.log(enemies.length);
+        createEnemy();
+        createEnemy();
+    }
 }
 
 function xRandom(){
@@ -64,6 +82,15 @@ function xRandom(){
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function randomEnemy(){
+    let x = randomIntFromInterval(1,6);
+    if (x === 1){
+        enemies.pop();
+    } else if (x === 6) {
+        createEnemy();
+    }
 }
 
 function changeBackground(){
@@ -95,16 +122,17 @@ function music(){
     x.play();
 }
 
-function deathAnimation(enemy){
-    let x = enemy.x;
-    let y = enemy.y;
-
-
+function endGame(){
+    clearInterval(backgroundChange);
+    clearInterval(game);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(background,0,0,1000,900)
+    alert("ACABOU");
 }
 
 function startGame(){
-    setInterval(changeBackground, 10000);
-    setInterval(hongKong97, 1000 / 60);
+    backgroundChange = setInterval(changeBackground, 10000);
+    game = setInterval(hongKong97, 1000 / 60);
     music();
 }
 

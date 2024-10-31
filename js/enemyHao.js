@@ -8,6 +8,7 @@ export default class EnemyHao extends Enemy{
         this.speed = 3;
         this.shot;
         this.BulletEnemy;
+        this.moveLeft = false;
     }
 
     draw(context){
@@ -18,7 +19,16 @@ export default class EnemyHao extends Enemy{
 
     move(){
         this.y += this.speed;
-        this.x += this.speed;
+        if (this.moveLeft === false){
+            this.x += this.speed + 3;
+        } else {
+            this.x -= this.speed + 3;
+        }
+        if (this.x >= 900){
+            this.moveLeft = true;
+        } else if (this.x <= 100){
+            this.moveLeft = false;
+        }
     }
 
     shoot(context){
@@ -28,7 +38,7 @@ export default class EnemyHao extends Enemy{
             const damage = 1;
             const bulletX = this.x + this.width/2;
             const bulletY = this.y;
-            this.BulletEnemy = new Enemy(bulletX,bulletY,speed,damage,delay);
+            this.BulletEnemy = new BulletEnemy(bulletX,bulletY,speed,damage,delay);
             this.BulletEnemy.draw(context);
         }
     }

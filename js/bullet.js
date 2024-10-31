@@ -21,7 +21,8 @@ export default class Bullet{
         if (this.x < sprite.x + sprite.width 
             && this.x + this.width > sprite.x 
             && this.y < sprite.y + sprite.height
-            && this.y + this.height > sprite.y){
+            && this.y + this.height > sprite.y
+            && sprite.dead === false){
                 sprite.takeDamage(this.damage);
                 return true;
             }

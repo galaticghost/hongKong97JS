@@ -10,6 +10,7 @@ export default class Player{
         this.sprite.src = "assets/player/player1.png";
         this.counterLeft = 1;
         this.counterRight = 1;
+        this.invincible = false;
 
         document.addEventListener("keydown", this.keydown);
         document.addEventListener("keyup", this.keyup);
@@ -25,10 +26,14 @@ export default class Player{
     spriteChanger(){
         if ((!this.leftPressed && !this.rightPressed) && (this.upPressed)){
             if (this.interval !== undefined){clearInterval(this.interval);}
+            this.width = 51;
             this.sprite.src = "assets/player/player1Back.png";
+            this.counterLeft = 1;
         } else if ((!this.leftPressed && !this.rightPressed) || (this.leftPressed && this.rightPressed)){
             if (this.interval !== undefined){clearInterval(this.interval);}
             this.sprite.src = "assets/player/player1.png";
+            this.width = 51;
+            this.counterLeft = 1;
         } else if (this.leftPressed){
             if (this.interval !== undefined && this.interval === setInterval(this.rightAnimation.bind(this),300)){clearInterval(this.interval);}
                 this.leftAnimation();
@@ -42,9 +47,12 @@ export default class Player{
         if (this.counterRight !== 1){
             this.counterRight = 1;
         }
+        
         if (this.counterLeft === 31){
             this.counterLeft = 1;
         }
+
+        this.width = 92;
 
         if ((this.counterLeft === 1) || (this.counterLeft < 7)){
             this.sprite.src = "assets/player/player2.png";
@@ -65,9 +73,12 @@ export default class Player{
         if (this.counterLeft !== 1){
             this.counterLeft = 1;
         }
+        
         if (this.counterRight === 31){
             this.counterRight = 1;
         }
+
+        this.width = 92;
 
         if ((this.counterRight === 1) || (this.counterRight < 7)){
             this.sprite.src = "assets/player/player2Right.png";
@@ -143,6 +154,18 @@ export default class Player{
         if (e.code === "KeyZ"){
             this.shotPressed = false;
         }
+    }
+    
+    colideWith(sprite){
+        if (this.x < sprite.x + sprite.width 
+            && this.x + this.width > sprite.x 
+            && this.y < sprite.y + sprite.height
+            && this.y + this.height > sprite.y
+            && sprite.dead === false
+            && this.invincible === false){
+                return true;
+            }
+        return false;
     }
 }
 
