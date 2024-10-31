@@ -15,12 +15,16 @@ export default class BulletEnemy{
     draw(context){
         this.y += this.speed;
         context.drawImage(this.sprite,this.x,this.y,this.width,this.height);
-        if (this.isBulletOffScreen()){
-            //del this;
-        }
     }
 
-    isBulletOffScreen(bullet){
-        return this.y >= 870;
+    colideWith(player){
+        if (this.x < player.x + player.width 
+            && this.x + this.width > player.x 
+            && this.y < player.y + player.height
+            && this.y + this.height > player.y
+            && player.invincible === false){
+                return true;
+            }
+        return false;
     }
 }

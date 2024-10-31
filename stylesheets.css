@@ -18,3 +18,7 @@ body {
     left: 0;
     position: absolute;
 }
+
+#div{
+    background-color: white;
+}

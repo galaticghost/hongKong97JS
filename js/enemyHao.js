@@ -1,5 +1,5 @@
 import Enemy from "./enemy.js";
-import BulletEnemy from "./bulletEnemy.js";
+import BulletEnemyController from "./bulletControllerEnemy.js";
 
 export default class EnemyHao extends Enemy{
     constructor(x,y,health){
@@ -7,14 +7,14 @@ export default class EnemyHao extends Enemy{
         this.sprite.src = "assets/enemy/enemy3.png";
         this.speed = 3;
         this.shot;
-        this.BulletEnemy;
+        this.bulletEnemyController = new BulletEnemyController();
         this.moveLeft = false;
     }
 
     draw(context){
         this.move();
-        this.shoot(context);
         context.drawImage(this.sprite,this.x,this.y,this.width,this.height);
+        this.shoot();
     }
 
     move(){
@@ -31,16 +31,13 @@ export default class EnemyHao extends Enemy{
         }
     }
 
-    shoot(context){
-        if (true){
-            const speed = 10;
-            const delay = 10;
-            const damage = 1;
-            const bulletX = this.x + this.width/2;
-            const bulletY = this.y;
-            this.BulletEnemy = new BulletEnemy(bulletX,bulletY,speed,damage,delay);
-            this.BulletEnemy.draw(context);
-        }
+    shoot(){
+        const speed = 8;
+        const delay = 40;
+        const damage = 1;
+        const bulletX = this.x + this.width/2;
+        const bulletY = this.y;
+        this.bulletEnemyController.shoot(bulletX,bulletY,speed,damage,delay);
     }
 
     spriteChanger(){
