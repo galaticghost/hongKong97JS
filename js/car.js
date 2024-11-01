@@ -8,6 +8,7 @@ export default class Car{
         this.sprite = new Image();
         this.sprite.src = "assets/enemy/car.png";
         this.frame = 0;
+        this.dead = false;
     }
 
     draw(context){
