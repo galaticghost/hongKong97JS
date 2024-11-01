@@ -9,6 +9,8 @@ body {
 
 #jogo{
     outline: 40px ridge black;
+    width: 1000px;
+    height: 900px;
 }
 
 #start{
@@ -21,4 +23,6 @@ body {
 
 #div{
     background-color: white;
+    width: 500px;
+    height: 500px;
 }

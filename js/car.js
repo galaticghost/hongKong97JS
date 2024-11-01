@@ -3,7 +3,7 @@ export default class Car{
         this.y = y;
         this.x = 1020;
         this.height = 100;
-        this.width = 128;
+        this.width = 140;
         this.speed = 5;
         this.sprite = new Image();
         this.sprite.src = "assets/enemy/car.png";
@@ -24,5 +24,9 @@ export default class Car{
             this.x -= this.speed + 10;
         }
         this.frame += 1;
+    }
+
+    isCarOffScreen(){
+        return this.x <= -50;
     }
 }

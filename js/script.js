@@ -3,8 +3,9 @@ import BulletController from "./bulletController.js";
 import EnemyWen from "./enemyWen.js";
 import EnemyZhou from "./enemyZhou.js";
 import EnemyHao from "./enemyHao.js";
+import Syringe from "./syringe.js";
 import Score from "./score.js";
-import BulletControllerEnemy from "./bulletControllerEnemy.js";
+import Chip from "./chip.js";
 import Car from "./car.js";
 
 // Variáveis globais
@@ -22,6 +23,7 @@ function realGame(){
 
     const bulletController = new BulletController(canvas);
     const player = new Player(canvas.width/2.1,canvas.height/1.2,bulletController);
+    const syringes = []
     const enemies = []
     const chips = []
     const car = []
@@ -47,13 +49,13 @@ function realGame(){
         bulletController.draw(context);
         player.draw(context);
         if (car.length === 1){
-            if (isCarOffScreen(car[0])){
+            if (player.colideWith(car[0])) {
+                endGame();
+            }
+            if (car[0].isCarOffScreen()){
                 car.pop();
             } else {
                 car[0].draw(context);
-            }
-            if (player.colideWith(car[0])) {
-                endGame();
             }
         }
         enemies.forEach((enemy) => {
@@ -69,6 +71,7 @@ function realGame(){
                 if(enemy.health <= 0){
                     createEnemy();
                     randomEnemy();
+                    randomDrop(enemy);
                     score.score += 1;
                     enemy.height = 75;
                     enemy.width = 100;
@@ -83,13 +86,37 @@ function realGame(){
                     const index = enemies.indexOf(enemy);
                     enemies.splice(index,1);
                 }
-            } else if (player.colideWith(enemy) /*|| player.colideWith(chip)*/){
+            } else if (player.colideWith(enemy)){
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 endGame();
             } else {
                 enemy.draw(context);
             }
         });
+        chips.forEach((chip) => {
+            if (player.colideWith(chip)){
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                endGame();
+            } else if (chip.isChipOffScreen()){
+                const index = chips.indexOf(chip);
+                chips.splice(index,1);
+            } else {
+                chip.draw(context);
+            }
+        })
+
+        syringes.forEach((syringe) => {
+            if (player.colideWith(syringe)){
+                player.invincible = true;
+                const index = syringes.indexOf(syringe);
+                syringes.splice(index,1);
+            } else if (syringe.isSyringeOffScreen()){
+                const index = syringes.indexOf(syringe);
+                syringes.splice(index,1);
+            } else {
+                syringe.draw(context);
+            }
+        })
         if (enemies.length === 0) {
             createEnemy();
             createEnemy();
@@ -113,13 +140,19 @@ function realGame(){
         }
     }
 
-    function isCarOffScreen(car){
-        return car.x <= -50;
+    function randomDrop(enemy){
+        let x = randomIntFromInterval(1,12);
+        if (x === 1){
+            chips.push(new Chip(enemy.x, enemy.y));
+        } else if (x === 12){
+            console.log("afsa");
+            syringes.push(new Syringe(enemy.x,enemy.y));
+        }
     }
 
     function createCar(){
-        let x = randomIntFromInterval(1,500)
-        if (x === 499 && car.length === 0){
+        let x = randomIntFromInterval(1,1000)
+        if (x === 999 && car.length === 0){
             car.push(new Car(randomIntFromInterval(0,899)));
         }
     }

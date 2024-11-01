@@ -11,6 +11,7 @@ export default class Player{
         this.counterLeft = 1;
         this.counterRight = 1;
         this.invincible = false;
+        this.invincibleFrame = 1;
 
         document.addEventListener("keydown", this.keydown);
         document.addEventListener("keyup", this.keyup);
@@ -19,6 +20,7 @@ export default class Player{
     draw(context){
         this.move();
         this.spriteChanger();
+        this.invincibleStatus();
         context.drawImage(this.sprite,this.x,this.y,this.width,this.height);
         this.shoot();
     }
@@ -102,10 +104,22 @@ export default class Player{
             this.y -= this.speed;
         }
         if (this.leftPressed && this.x >= 0.75){
-            this.x -= this.speed;
+            this.x -= this.speed + 1;
         }
         if (this.rightPressed && this.x <= 944.75){
-            this.x += this.speed;
+            this.x += this.speed + 1;
+        }
+    }
+
+    invincibleStatus(){
+        if (this.invincibleFrame === 241){
+            this.invincibleFrame = 1;
+        }
+        if (this.invincible){
+            if (this.invincibleFrame === 240){
+                this.invincible = false;
+            }
+        this.invincibleFrame += 1;
         }
     }
 
@@ -157,7 +171,6 @@ export default class Player{
     }
     
     colideWith(sprite){
-        console.log(sprite.x)
         if (this.x < sprite.x + sprite.width 
             && this.x + this.width > sprite.x 
             && this.y < sprite.y + sprite.height
