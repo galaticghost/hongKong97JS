@@ -1,5 +1,6 @@
 import Player from "./player.js";
 import BulletController from "./bulletController.js";
+import TongShauPing from "./tongShauPing.js";
 import EnemyWen from "./enemyWen.js";
 import EnemyZhou from "./enemyZhou.js";
 import EnemyHao from "./enemyHao.js";
@@ -29,12 +30,14 @@ function realGame(){
     const car = []
 
     const score = new Score();
+    score.score = 30;
     const gameOver = new Image();
     gameOver.src =  "assets/etc/gameOver.png";
 
     let background = new Image();
     let backgroundContador = 2;
     let enemyType;
+    let tongShauPing = undefined;
 
     background.src = "assets/background/background1.png";
     background.onload = function(){
@@ -44,10 +47,15 @@ function realGame(){
     function hongKong97(){
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(background,0,0,1000,900)
+        
         createCar();
+        
         score.draw(context);
+        
         bulletController.draw(context);
+        
         player.draw(context);
+        
         if (car.length === 1){
             if (player.colideWith(car[0])) {
                 endGame();
@@ -58,6 +66,7 @@ function realGame(){
                 car[0].draw(context);
             }
         }
+
         enemies.forEach((enemy) => {
             if (enemy.bulletEnemyController !== undefined){
                 if (enemy.bulletEnemyController.colideWith(player)){
@@ -67,18 +76,23 @@ function realGame(){
                     enemy.bulletEnemyController.draw(context);
                 }
             }
+
             if (bulletController.colideWith(enemy)){
                 if(enemy.health <= 0){
-                    createEnemy();
-                    randomEnemy();
-                    randomDrop(enemy);
+                    if (tongShauPing === undefined){
+                        createEnemy();
+                        randomEnemy();
+                        randomDrop(enemy);
+                    }
                     score.score += 1;
                     enemy.height = 75;
                     enemy.width = 100;
                     enemy.dead = true;
                 }
             } else if (enemy.isEnemyOffScreen()){
-                createEnemy();
+                if (tongShauPing === undefined){
+                    createEnemy();
+                }
                 const index = enemies.indexOf(enemy);
                 enemies.splice(index,1);
             } else if (enemy.dead === true){
@@ -93,6 +107,23 @@ function realGame(){
                 enemy.draw(context);
             }
         });
+
+        syringes.forEach((syringe) => {
+            if (player.colideWithSyringe(syringe)){
+                if (player.invincible = true){
+                    player.invincibleFrame = 1;
+                }
+                player.invincible = true;
+                const index = syringes.indexOf(syringe);
+                syringes.splice(index,1);
+            } else if (syringe.isSyringeOffScreen()){
+                const index = syringes.indexOf(syringe);
+                syringes.splice(index,1);
+            } else {
+                syringe.draw(context);
+            }
+        })
+
         chips.forEach((chip) => {
             if (player.colideWith(chip)){
                 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -104,20 +135,26 @@ function realGame(){
                 chip.draw(context);
             }
         })
+        if (score.score % 30 === 0 && score.score !== 0 && tongShauPing === undefined){
+            tongShauPing = new TongShauPing(500,-140,20);
+        }
 
-        syringes.forEach((syringe) => {
-            if (player.colideWith(syringe)){
-                player.invincible = true;
-                const index = syringes.indexOf(syringe);
-                syringes.splice(index,1);
-            } else if (syringe.isSyringeOffScreen()){
-                const index = syringes.indexOf(syringe);
-                syringes.splice(index,1);
+        if (tongShauPing !== undefined){
+            if (player.colideWith(tongShauPing)){
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                endGame();
+            } else if (bulletController.colideWith(tongShauPing)){
+                if(tongShauPing.health <= 0){
+                    createEnemy();
+                    createEnemy();
+                    score.score += 10;
+                    tongShauPing = undefined;
+                }
             } else {
-                syringe.draw(context);
+                tongShauPing.draw(context,player);
             }
-        })
-        if (enemies.length === 0) {
+        }
+        if (enemies.length === 0 && tongShauPing === undefined) {
             createEnemy();
             createEnemy();
         }
@@ -135,8 +172,11 @@ function realGame(){
         let x = randomIntFromInterval(1,6);
         if (x === 1){
             enemies.pop();
-        } else if (x === 6) {
+        } else if ((x === 6 && enemies.length <= 4) || (x === 6 && score.score > 30)) {
             createEnemy();
+            if (enemies.length < 10 && score.score > 60){
+                createEnemy();
+            }
         }
     }
 
@@ -145,7 +185,6 @@ function realGame(){
         if (x === 1){
             chips.push(new Chip(enemy.x, enemy.y));
         } else if (x === 12){
-            console.log("afsa");
             syringes.push(new Syringe(enemy.x,enemy.y));
         }
     }
@@ -153,7 +192,7 @@ function realGame(){
     function createCar(){
         let x = randomIntFromInterval(1,1000)
         if (x === 999 && car.length === 0){
-            car.push(new Car(randomIntFromInterval(0,899)));
+            car.push(new Car(randomIntFromInterval(1,899)));
         }
     }
 
@@ -219,4 +258,3 @@ function realGame(){
 }
 
 start.onclick = realGame;
-

@@ -44,12 +44,7 @@ export default class Score{
         context.drawImage(this.spriteSeven,640.75,18,this.width,this.height);
         context.drawImage(this.spriteEight,600.75,18,this.width,this.height);
         context.drawImage(this.spriteNine,560.75,18,this.width,this.height);
-        
         this.updateScore();
-
-        if (this.score >= 1000000000){
-            alert("Você venceu!");
-        }
     }
 
     updateScore(){

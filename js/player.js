@@ -181,6 +181,17 @@ export default class Player{
             }
         return false;
     }
+
+    colideWithSyringe(sprite){
+        if (this.x < sprite.x + sprite.width 
+            && this.x + this.width > sprite.x 
+            && this.y < sprite.y + sprite.height
+            && this.y + this.height > sprite.y
+            && sprite.dead === false){
+                return true;
+            }
+        return false;
+    }
 }
 
 
