@@ -145,9 +145,13 @@ function realGame(){
                 endGame();
             } else if (bulletController.colideWith(tongShauPing)){
                 if(tongShauPing.health <= 0){
-                    createEnemy();
-                    createEnemy();
                     score.score += 10;
+                    tongShauPing.dead = true;
+                }
+            } else if(tongShauPing.dead === true){
+                if (tongShauPing.deathAnimation(context) === 61){
+                    createEnemy();
+                    createEnemy();
                     tongShauPing = undefined;
                 }
             } else {
