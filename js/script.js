@@ -30,7 +30,7 @@ function realGame(){
     const car = []
 
     const score = new Score();
-    score.score = 30;
+    score.score = 0;
     const gameOver = new Image();
     gameOver.src =  "assets/etc/gameOver.png";
 
