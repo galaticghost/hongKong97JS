@@ -136,7 +136,7 @@ function realGame(){
             }
         })
         if (score.score % 30 === 0 && score.score !== 0 && tongShauPing === undefined){
-            tongShauPing = new TongShauPing(500,-140,20);
+            tongShauPing = new TongShauPing(500,-140,30);
         }
 
         if (tongShauPing !== undefined){

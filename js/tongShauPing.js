@@ -61,11 +61,6 @@ export default class TongShauPing extends Enemy{
             this.cooldown -= 1;
         }
 
-        console.log(player.y + " " + this.y);
-        console.log(player.x + " " + this.x);
-        console.log(this.atackStatus + "AtackSattus");
-        console.log(this.cooldown + "Cooldown"); 
-
         if ((player.x > this.x && player.x < (this.x + this.width)) && this.cooldown === 0 && this.atackStatus === 0){
             this.atackStatus = 1;
         }
@@ -80,7 +75,6 @@ export default class TongShauPing extends Enemy{
                 this.y += this.speed + 20;
             }
 
-            console.log(this.frameAttack);
             this.frameAttack += 1;
         }
 
